@@ -1,11 +1,9 @@
 import Canvas from "./components/Canvas/Canvas.jsx";
 import axios from "axios";
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState } from "react";
 import Loader from "./components/Loader/Loader.jsx";
 
 function App() {
-  let canvasRef = useRef(null);
-  const [canvasProp, setCanvasProp] = useState(null);
   const [planetList, setPlanetList] = useState(null);
 
   const getPlanets = async () => {
@@ -37,17 +35,14 @@ function App() {
 
   useEffect(() => {
     getPlanets();
-    setCanvasProp(canvasRef.current);
-  }, [canvasRef]);
+  }, []);
 
   return (
     <>
       <main>
         {!planetList && <Loader />}
-        <section className="threeRenderer" ref={canvasRef}>
-          {planetList && (
-            <Canvas planetList={planetList} parentElement={canvasProp} />
-          )}
+        <section className="threeRenderer">
+          {planetList && <Canvas planetList={planetList} />}
         </section>
       </main>
     </>

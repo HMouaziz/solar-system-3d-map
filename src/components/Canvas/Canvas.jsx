@@ -6,7 +6,7 @@ import "./Canvas.scss";
 // import {TrackballControls} from "three/addons";
 
 // eslint-disable-next-line react/prop-types
-const Canvas = ({ parentElement, planetList }) => {
+const Canvas = ({ planetList }) => {
   const mountRef = useRef(null);
 
   useEffect(() => {
@@ -51,7 +51,9 @@ const Canvas = ({ parentElement, planetList }) => {
       10000
     );
     const renderer = new THREE.WebGLRenderer({ antialias: true });
-    renderer.setSize(window.innerWidth, window.innerHeight);
+    renderer.setSize(window.innerWidth, window.innerHeight / 2);
+    camera.aspect = window.innerWidth / (window.innerHeight / 2);
+    camera.updateProjectionMatrix();
 
     let controls = new OrbitControls(camera, renderer.domElement);
     controls.listenToKeyEvents(window);
