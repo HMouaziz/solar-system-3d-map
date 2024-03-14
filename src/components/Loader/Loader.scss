@@ -1,0 +1,13 @@
+@use "../../style/variables" as *;
+@use "../../style/functions" as *;
+@use "../../style/mixins" as *;
+
+.loader {
+  @include centered-container(80%);
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  column-gap: toRem(32);
+}

@@ -1,0 +1,8 @@
+@use "./style/resets";
+@use "./style/mixins" as *;
+
+.threeRenderer {
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+}

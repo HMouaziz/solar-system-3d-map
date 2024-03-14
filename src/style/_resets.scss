@@ -1,0 +1,15 @@
+@use "./variables" as *;
+@use "./mixins" as *;
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  font-family: "Trebuchet MS", sans-serif;
+  font-size: $font-mobile-size;
+  background-color: $background;
+  color: $text;
+
+  @include tablet-and-desktop {
+    font-size: $font-default-size;
+  }
+}

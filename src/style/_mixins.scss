@@ -1,0 +1,50 @@
+@use './variables' as *;
+@use './functions' as *;
+
+/* Shared definitions */
+
+@mixin flex-defaults {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+@mixin centered-container($width) {
+  margin: 0 auto;
+  max-width: $max-wrapper-width;
+
+  @if $width != auto {
+    width: $width;
+  } @else {
+    width: 80%;
+  }
+}
+
+@mixin mobile-container {
+  margin: 0 toRem(16);
+}
+
+/* Responsive */
+
+@mixin desktop {
+  @media screen and (min-width: $desktop-breakpoint) {
+    @content;
+  }
+}
+
+@mixin tablet-and-desktop {
+  @media screen and (min-width: $tablet-breakpoint) {
+    @content;
+  }
+}
+
+@mixin responsive-container {
+  @include mobile-container;
+
+  @include tablet-and-desktop {
+    @include centered-container(90%);
+  }
+
+  @include desktop {
+    @include centered-container(auto);
+  }
+}
