@@ -9,7 +9,7 @@ function App() {
     const getPlanets = async () => {
         const allowedPlanetList = ['Sun', 'Mercury', 'Venus', 'Earth', 'Mars', 'Jupiter', 'Saturn', 'Neptune', 'Uranus'];
         try {
-            const {data} = await axios.get('https://api.le-systeme-solaire.net/rest/bodies?data=englishName,perihelion,meanRadius');
+            const {data} = await axios.get('https://api.le-systeme-solaire.net/rest/bodies?data=englishName,perihelion,meanRadius,semimajorAxis,sideralOrbit,inclination,eccentricity');
             const list = data.bodies.filter((body) => {
                 if (allowedPlanetList.includes(body.englishName)) {
                     return body;
