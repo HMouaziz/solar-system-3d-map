@@ -7,7 +7,6 @@ import "./Canvas.scss";
 
 // eslint-disable-next-line react/prop-types
 const Canvas = ({ parentElement, planetList }) => {
-  console.log(parentElement);
   const mountRef = useRef(null);
 
   useEffect(() => {
