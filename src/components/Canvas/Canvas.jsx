@@ -16,14 +16,29 @@ const Canvas = ({planetList}) => {
             const geometry = new THREE.SphereGeometry(size, 32, 32);
             const material = new THREE.MeshBasicMaterial({color: color});
             const planet = new THREE.Mesh(geometry, material);
-            planet.position.x = distanceFromSun;
+            planet.position.set(distanceFromSun, 0,0);
             return planet;
+        };
+
+        const createOrbitLine = (semimajorAxis, segments) => {
+            const points = [];
+            const orbitRadius = semimajorAxis * 0.000001;
+            for (let i = 0; i <= segments; i++) {
+                const angle = (i / segments) * 2 * Math.PI;
+                points.push(new THREE.Vector3(Math.cos(angle) * orbitRadius, 0, Math.sin(angle) * orbitRadius));
+            }
+
+            const geometry = new THREE.BufferGeometry().setFromPoints(points);
+            const material = new THREE.LineBasicMaterial({ color: 0xffffff, transparent: true, opacity: 0.5 });
+            const orbitLine = new THREE.LineLoop(geometry, material);
+
+            return orbitLine;
         };
 
 
 
         const scene = new THREE.Scene();
-        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.01, 10000);
         const renderer = new THREE.WebGLRenderer({antialias: true});
         renderer.setSize(window.innerWidth, window.innerHeight);
 
@@ -41,35 +56,21 @@ const Canvas = ({planetList}) => {
         if (planetList) {
             // eslint-disable-next-line react/prop-types
             planetList.forEach((planet) => {
-                console.log(planet)
                 let coef = 0.000001;
                 let sun = 'Sun';
                 let distanceFromSun = planet.perihelion * coef;
                 let size = planet.englishName === sun ? planet.meanRadius * 0.0001 : planet.meanRadius * 0.001;
                 let color = planet.englishName === sun ? 0xffff00 : randomColor();
                 scene.add(createPlanet(size, color, distanceFromSun));
+
+                let semimajorAxis = planet.semimajorAxis;
+                scene.add(createOrbitLine(semimajorAxis, 100))
             });
         }
 
         // Adjust camera
         camera.position.z = 1000;
 
-        // const controls = new THREE.TrackballControls( camera );
-        // controls.target.set( 0, 0, 0 );
-        //
-        // controls.rotateSpeed = 1.0;
-        // controls.zoomSpeed = 1.2;
-        // controls.panSpeed = 0.8;
-        //
-        // controls.noZoom = false;
-        // controls.noPan = false;
-        //
-        // controls.staticMoving = false;
-        // controls.dynamicDampingFactor = 0.15;
-        //
-        // controls.keys = [ 65, 83, 68 ];
-
-        // Animation loop
         const animate = function () {
             requestAnimationFrame(animate);
 
