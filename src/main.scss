@@ -1,8 +1,32 @@
 @use "./style/resets";
+@use "./style/variables" as *;
 @use "./style/mixins" as *;
+@use "./style/functions" as *;
 
-.threeRenderer {
+.app {
   display: flex;
   align-items: flex-end;
   justify-content: center;
+  flex-direction: column;
+  height: 100vh;
+}
+
+.appHeader {
+  font-size: toRem(42);
+  font-weight: 600;
+  border-top: 2px solid $secondary;
+  border-left: 2px solid $secondary;
+  border-top-left-radius: 5px;
+  padding: toRem(8) toRem(8);
+  background-color: $accent;
+}
+
+.appFooter {
+  align-self: baseline;
+  font-size: toRem(24);
+  font-weight: 600;
+  border-bottom: 2px solid $secondary;
+  border-right: 2px solid $secondary;
+  border-bottom-right-radius: 5px;
+  padding: toRem(8) toRem(8);
 }

@@ -39,10 +39,14 @@ function App() {
 
   return (
     <>
-      <main>
+      <main className="app">
         {!planetList && <Loader />}
+        <section className="appHeader">A 3D Mapper of The Solar System</section>
         <section className="threeRenderer">
           {planetList && <Canvas planetList={planetList} />}
+        </section>
+        <section className="appFooter">
+          Use your mouse to control the map.
         </section>
       </main>
     </>

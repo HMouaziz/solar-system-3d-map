@@ -1,0 +1,9 @@
+@use "../../style/variables" as *;
+@use "../../style/functions" as *;
+@use "../../style/mixins" as *;
+
+.canvas {
+  border-top: 5px solid $secondary;
+  border-bottom: 5px solid $secondary;
+  box-shadow: 5px 0px 67px -10px $primary;
+}
