@@ -3,45 +3,13 @@ import randomColor from "randomcolor";
 import { useEffect, useRef } from "react";
 import { OrbitControls } from "three/addons";
 import "./Canvas.scss";
-// import {TrackballControls} from "three/addons";
+import CelestialObject from "../../classes/CelestialObject.js";
 
 // eslint-disable-next-line react/prop-types
 const Canvas = ({ planetList }) => {
   const mountRef = useRef(null);
 
   useEffect(() => {
-    const createPlanet = (size, color, distanceFromSun) => {
-      const geometry = new THREE.SphereGeometry(size, 32, 32);
-      const material = new THREE.MeshBasicMaterial({ color: color });
-      const planet = new THREE.Mesh(geometry, material);
-      planet.position.set(distanceFromSun, 0, 0);
-      return planet;
-    };
-
-    const createOrbitLine = (semimajorAxis, segments) => {
-      const points = [];
-      const orbitRadius = semimajorAxis * 0.000001;
-      for (let i = 0; i <= segments; i++) {
-        const angle = (i / segments) * 2 * Math.PI;
-        points.push(
-          new THREE.Vector3(
-            Math.cos(angle) * orbitRadius,
-            0,
-            Math.sin(angle) * orbitRadius
-          )
-        );
-      }
-
-      const geometry = new THREE.BufferGeometry().setFromPoints(points);
-      const material = new THREE.LineBasicMaterial({
-        color: 0xffffff,
-        transparent: true,
-        opacity: 0.5,
-      });
-      const orbitLine = new THREE.LineLoop(geometry, material);
-
-      return orbitLine;
-    };
 
     const scene = new THREE.Scene();
     const camera = new THREE.PerspectiveCamera(
@@ -69,24 +37,26 @@ const Canvas = ({ planetList }) => {
     if (planetList) {
       // eslint-disable-next-line react/prop-types
       planetList.forEach((planet) => {
-        let coef = 0.000001;
-        let sun = "Sun";
-        let distanceFromSun = planet.perihelion * coef;
-        let size =
-          planet.englishName === sun
-            ? planet.meanRadius * 0.0001
-            : planet.meanRadius * 0.001;
-        let color = planet.englishName === sun ? 0xffff00 : randomColor();
-        scene.add(createPlanet(size, color, distanceFromSun));
-
-        let semimajorAxis = planet.semimajorAxis;
-        scene.add(createOrbitLine(semimajorAxis, 100));
+        const scaleFactor = 1e-6;
+        const geometry = new THREE.SphereGeometry(1000000, 32, 32);
+        const material = new THREE.MeshBasicMaterial({ color: randomColor() });
+        const newPlanet = new CelestialObject(geometry, material, planet, scaleFactor)
+        newPlanet.addMesh(scene)
+        console.log(planet.englishName + ' added')
       });
     }
 
     // Adjust camera
-    camera.position.z = 1000;
+    camera.position.z = 10; // Adjusted based on scale
+    camera.aspect = window.innerWidth / (window.innerHeight / 2);
+    camera.updateProjectionMatrix();
 
+    controls.enablePan =false;
+
+    mountRef.current.appendChild(renderer.domElement);
+
+    const gridHelper = new THREE.GridHelper(100, 100);
+    scene.add(gridHelper);
     const animate = function () {
       requestAnimationFrame(animate);
 

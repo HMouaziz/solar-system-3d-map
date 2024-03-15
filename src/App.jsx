@@ -20,7 +20,7 @@ function App() {
     ];
     try {
       const { data } = await axios.get(
-        "https://api.le-systeme-solaire.net/rest/bodies?data=englishName,perihelion,meanRadius,semimajorAxis,sideralOrbit,inclination,eccentricity"
+        "https://api.le-systeme-solaire.net/rest/bodies"
       );
       const list = data.bodies.filter((body) => {
         if (allowedPlanetList.includes(body.englishName)) {
