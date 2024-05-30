@@ -52,11 +52,11 @@ To run the Solar System 3D Map locally, follow these steps:
      ```
 
 4. **Navigate to the application:**
-   Open your browser and go to `http://localhost:3000`.
+   Open your browser and go to `http://localhost:5173`.
 
 ## Usage
 
-Once the server is running, open your browser and navigate to `http://localhost:3000`. You will see the Solar System 3D Map application displaying the solar system with interactive controls.
+Once the server is running, open your browser and navigate to `http://localhost:5173`. You will see the Solar System 3D Map application displaying the solar system with interactive controls.
 
 ### Interactions
 
