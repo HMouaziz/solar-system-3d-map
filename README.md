@@ -13,7 +13,7 @@ Welcome to the Solar System 3D Map project! This repository contains a web appli
 
 ## Introduction
 
-The Solar System 3D Map application provides an interactive 3D representation of the solar system. It includes the major planets and the sun, allowing users to explore their relative positions and orbits(not yet see v2 @).
+The Solar System 3D Map application provides an interactive 3D representation of the solar system. It includes the major planets and the sun, allowing users to explore their relative positions and orbits(see: [solar-system-renderer](https://github.com/HMouaziz/solar-system-renderer) for imporved version).
 
 ## Features
 
