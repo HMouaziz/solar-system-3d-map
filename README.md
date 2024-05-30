@@ -113,4 +113,4 @@ This project is licensed under the GPL-3.0 License. See the [LICENSE](LICENSE) f
 
 ---
 
-Developed by Halim Mouaziz @ project-hephaestus.com & Vladimir Cașcarade &copy; 2024
+Developed by Halim Mouaziz @ project-hephaestus.com &copy; 2024
